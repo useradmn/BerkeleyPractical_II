@@ -10,17 +10,49 @@ Practical Application II
   </h3>
 <p>The CRISP-DM Framework is designed to maximize outcomes for a desired deployment and to help wrap technical techniques into best business objectives by using iterative and (somestimes) circular process flow. To attain such best business outcomes, one must first understand the business. Our client wants to know what do consumers value most in used cars. This is obviously to drive sales at their business as well as give consumers the best offering, because after all, it is what they desire. Next, as an AI/ML engineer, one must understand the data clearly. Without clear understanding for the data, one can not begin to prepare the data for modeling, which is our next step. Modeling will yeild best features (details) about the data that affect the targeted variable (in this case, pricing). In addition, modeling will also help suggest which algorithm is best for the use case, by utilizing scoring mechanisms.  Further, we can move to evaluation of what we have done thus far. We can glean from the results that have been rendered. This process can be circular to ensure best outcome for our client and their business goals.</p>
 <h3>Data Understanding</h3>
-<p><img src='https://awesomescreenshot.s3.amazonaws.com/image/3446742/30457823-0d8ff7cccfd3d438c196b6953e8db1da.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJSCJQ2NM3XLFPVKA%2F20220721%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220721T164254Z&X-Amz-Expires=28800&X-Amz-SignedHeaders=host&X-Amz-Signature=aee6837d253d4b9dadd5286f1509f3e991b2440f1cdb8c2530dc7d58805f78b2'</p>
+<p><img src='https://awesomescreenshot.s3.amazonaws.com/image/3446742/30457823-0d8ff7cccfd3d438c196b6953e8db1da.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJSCJQ2NM3XLFPVKA%2F20220721%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220721T164254Z&X-Amz-Expires=28800&X-Amz-SignedHeaders=host&X-Amz-Signature=aee6837d253d4b9dadd5286f1509f3e991b2440f1cdb8c2530dc7d58805f78b2'><br><br> In our dataset, we can see various features, which we will work with. Some are swiftly identifiable as important/unimportant and others are not as easily to swiftly identify. For example, we can get rid of VIN number, State, Region, ID, as these wont have bearing on the favorability of the vehicle. We do initially see that there are some blank field in our dataset. We'll have a look into how we can best make decision of working with this. We may need to drop/discard it.
+</p>
 <h3>Insights on Data Understanding</h3>
-<p></p>
+<p>We're able to gain meaningful insights from viewing our dataset. Let's take note of some important attributes (jupiter notebook of sourcing may be found here :<br>
+
+&bull;The latest model year is 2022 and the oldest is 1900. And we have the most of 2017 model year in inventory.<br>
+&bull;There are 209 12-cylinder vehicles<br>
+&bull;There are 1455 10-cylinder vehicles<br>
+&bull;There are 72062 8-cylinder vehicles<br>
+&bull;There are 94,169 6-cylinder vehicles<br>
+&bull;There are 1712 5-cylinder vehicles<br>
+&bull;There are 77,642 4-cylinder vehicles<br>
+&bull;There are 655 3-cylinder vehicles<br>
+&bull;From the dataset, there are 5 known types of fuel compatibilities: gas, diesel, hybrid, electric, other<br>
+&bull;From the dataset, we have vehicle mileage ranging from 0 miles to 1 to 10,000,000 (prior to dataset being cleaned)<br>
+&bull;Title status' range from: clean, rebuilt, salvage, lien, missing, parts only<br>
+&bull;Transmission types include: automatic, manual and other.<br>
+&bull;There are 131,904 4-wheel drive vehicles; 105517 front-wheel drive vehicles, and 58892 rear-wheel drive vehicles<br>
+&bull;Car types include: Sedan, SUV, Pickup, Truck, Coupe, Hatchback, Wagon, Van, Convertible, Mini-Van, OffRoad, Bus, and other.<br>
+&bull;Vehicles are sources from all 50 states and the Dictrict of Columbia (Washington DC).<br>
+&bull;California has the most of vehicles at 50,614<br>
+&bull;North Dakota has the fewest of vehicles at 410<br>
+
+</p>
 <h3>Data Preparation</h3>
-<p></p>
-<h3>Dealing with Outliers</h3>
-<p></p>
-<h3>Necessity of Labeling</h3>
-<p></p>
-<h3>Optimizing For Best Outcomes</h3>
-<p></p>
+<p>
+&bull;I chose to leave manufacturer with NaN as we may later be able to identify the vehicles based on the model<br>
+&bull;I close to omit VIN, ID because we will later drop it<br>
+&bull;Upon examination, we can see the following columns are non essential and will have no influence as they are attributes: id, vin<br>
+&bull;Thus, lets drop those columns, then drop duplicates<br>
+&bull;Lets check for anomolies in price. we need to manually check to make sure the model is not going to get thrown off by non-realistic pricing data<br>
+&bull;This could also mean poising in some cases<br>
+&bull;There outliers where the pricing just does not make sense. For example, the 2007 toyota tundra that costs $3,736,928,711 and the 1996 GMC Sierra pickup truck that cost 123,456,789.<br>
+&bull;These are just not practical, so we need to drop them with the goal of not adversely our predictions.<br>
+&bull;Im not sure that I like the word 'cylinders' on the values in the cylinders column. so lets strip it change from float to int<br>
+&bull;Same thing where we have string values for transmission types. Lets convert these to int. Could have also used label encoder.<br>
+&bull;Same thing for drive type -- i want this as numerical value. of type int.<br>
+&bull;We have a problem where we need to figure out how to get car condition where there is a nan value.<br>
+&bull;My guess is that we can take the price of the car and figure out what the possible condition might be<br>
+&bull;It may be a bit off due to different makes of cars having different values, but it will be an earnest try<br>
+&bull;Same logic applies for trying to figure out title status where it is nan<br>
+   
+</p>
 <h3>Modeling</h3>
 <p></p>
 <h3>Evaluationg</h3>
